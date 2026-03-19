@@ -279,6 +279,8 @@ const translations = {
     uom_degree: "Doctor of Philosophy (PhD) in Computer Science",
     sysu_degree: "Bachelor of Engineering in Software Engineering",
     scholarship: "🏆 Outstanding Student Scholarship, Sun Yat-sen University (2022)",
+    uom_name: "University of Melbourne",
+    sysu_name: "Sun Yat-sen University",
     publications: "📝 Publications",
     experience: "💼 Professional Experience",
     job1_title: "Software Engineer Intern",
@@ -316,6 +318,8 @@ const translations = {
     uom_degree: "计算机科学博士（PhD）",
     sysu_degree: "软件工程工学学士",
     scholarship: "🏆 中山大学优秀学生奖学金（2022年）",
+    uom_name: "墨尔本大学",
+    sysu_name: "中山大学",
     publications: "📝 发表论文",
     experience: "💼 实习经历",
     job1_title: "软件工程师实习生",
@@ -385,6 +389,12 @@ function applyTranslations(lang) {
   document.querySelectorAll('h6.mb-2 em').forEach((el, i) => {
     if (i === 0) el.textContent = t.uom_degree;
     if (i === 1) el.textContent = t.sysu_degree;
+  });
+
+  // School names
+  document.querySelectorAll('.clearfix h5 strong').forEach(el => {
+    if (el.textContent.includes('University of Melbourne') || el.textContent.includes('墨尔本大学')) el.textContent = t.uom_name;
+    if (el.textContent.includes('Sun Yat-sen University') || el.textContent.includes('中山大学')) el.textContent = t.sysu_name;
   });
 
   // Scholarship
