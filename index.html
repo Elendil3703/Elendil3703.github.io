@@ -351,7 +351,7 @@ let currentLang = 'en';
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'zh' : 'en';
   applyTranslations(currentLang);
-  document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '中/EN' : 'EN/中';
+  document.getElementById('lang-toggle').title = currentLang === 'en' ? '切换语言 / Switch Language' : 'Switch Language / 切换语言';
 }
 
 function applyTranslations(lang) {
