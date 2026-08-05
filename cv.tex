@@ -1,0 +1,410 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}         % 用于颜色设置
+\usepackage{fontspec}       % 用于支持字体配置 (如果使用 XeLaTeX 或 LuaLaTeX)
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=1 cm, % seperation between body and page edge from the top
+    bottom=1 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 0, 0} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Juntao Chen's CV},
+    pdfauthor={Juntao Chen},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+
+
+% Some settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+\pagenumbering{gobble} % no page numbering
+%\linespread{0.9} % 将行间距设为默认的 90%，更紧凑
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.1 cm
+}{
+    % bottom space:
+    0.1 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0 cm + 0.00001 cm
+    }{
+        0 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{, \fill, 4.5 cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(
+        \LenToUnit{\paperwidth-2 cm-0 cm+0.05cm},
+        \LenToUnit{\paperheight-1.0 cm}
+    ){\vtop{{\null}\makebox[0pt][c]{
+        \small\color{gray}\textit{Last updated in July 2024}\hspace{\widthof{Last updated in July 2024}}
+    }}}%
+  }%
+}%
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+
+\begin{document}
+   
+
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{$|$}
+
+    \begin{header}
+    
+        \fontsize{14 pt}{25 pt}\selectfont \textbf{Juntao Chen}
+        \vspace{5 pt}
+
+        \normalsize
+        
+         \mbox{\hrefWithoutArrow{tel:+86 18559163703}{+86 18559163703}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{mailto:juntao.chen@student.unimelb.edu.au}{juntao.chen@student.unimelb.edu.au}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\hrefWithoutArrow{mailto:juntaochen718@foxmail.com}{juntaochen718@foxmail.com}}%
+        % \kern 5.0 pt%
+        % \AND%
+        % \kern 5.0 pt%
+        % \mbox{\hrefWithoutArrow{https://elendil3703.github.io}{https://elendil3703.github.io}}%
+ 
+    \end{header}
+
+    \vspace{5 pt - 0.3 cm}
+
+   
+
+    \section{Education}
+
+\begin{twocolentry}{
+04/2026 – 04/2030}
+    \textbf{\large University of Melbourne}, Melbourne, Australia \\
+\textit{Doctor of Philosophy (PhD) in Computer Science}
+\end{twocolentry}
+
+\vspace{0.10 cm}
+
+\begin{twocolentry}{
+09/2021 – 06/2025}
+    \textbf{\large Sun Yat-sen University (SYSU)}, Guangzhou, China \\
+\textit{Bachelor of Engineering in Software Engineering}, GPA: \textbf{3.9/5.0}
+\\ IELTS: 7.5
+\\  Outstanding Student Scholarship, Sun Yat-sen University (2022)
+\end{twocolentry}
+
+\section{Research Experience}
+
+\begin{twocolentry}{
+            07/2024 - Now
+        }
+            \textbf{What to Retrieve for Effective Retrieval-Augmented Code
+Generation? An Empirical Study and Beyond}\end{twocolentry}
+
+        \vspace{0.10 cm}
+        \begin{onecolentry}
+       \textit{{\small Wenchao Gu, \textbf{Juntao Chen}, Yanlin Wang, Tianyue Jiang, Xingzhe Li, Mingwei Liu, Xilin Liu, Yuchi Ma, Zibin Zheng}}\\
+\textbf{Will be published at ICSE 2026}(CORE A*)           \textbf{Topic}: AI for Software Engineering  \\ \textbf{arXiv:2503.20589}
+\href{https://arxiv.org/abs/2503.20589}{\textit{https://arxiv.org/abs/2503.20589}}
+ 
+
+        \begin{highlights}
+            \item \textbf{Led the end-to-end project implementation},  including initial literature review and method exploration, codebase development, experimental design, large-scale evaluations, thorough analysis of experimental results, and iterative refinement of the proposed methods. \textbf{Actively contributed} to paper writing, comprehensive performance assessment, and in-depth discussions of results and implications.
+            \item Conducted a systematic \textbf{empirical study} on retrieval-augmented generation (RAG) for repository-level code generation, demonstrating that retrieving in-context code and relevant API documentation significantly improves LLM performance, while retrieving similar code can introduce noise and degrade results by up to 15\%.
+            \item Proposed \textbf{AllianceCoder}, a novel context-integrated framework that combines chain-of-thought prompting with semantic API retrieval for enhanced code generation.
+            \item Achieved \textbf{state-of-the-art} performance on \href{https://github.com/CoderEval/CoderEval}{\textit{CoderEval}} and \href{https://github.com/FSoft-AI4Code/RepoExec}{\textit{RepoExec}} benchmarks, improving Pass@1 by \textbf{10–20\%} over strong baselines and achieving up to \textbf{46\%} API recall, reducing the gap to oracle performance to within \textbf{5\%}.
+        \end{highlights}
+           
+        \end{onecolentry}
+
+ \section{Professional Experience}
+        \begin{twocolentry}{
+            07/2024 - 10/2024
+        }
+            \textbf{Software Engineer Intern}, \textit{Lenovo Group Limited} \end{twocolentry}
+
+        \begin{onecolentry}
+            \begin{highlights}
+                \item \textbf{Led the full-stack development} of the NECAP Department Asset Management System. Developed the front-end with \textit{Vue.js} and \textit{Element Plus}, and built the back-end with \textit{Golang} and the \textit{GIN} framework. Implemented key features including asset inventory, asset transfer, and asset editing, ensuring smooth workflows and improving overall system efficiency for managing departmental assets.
+               
+               \item Implemented \textit{WebSocket} for real-time requests and heartbeat detection, improving stability in high-concurrency environments. Deployed the system with \textit{Nginx} for reverse proxy and load balancing to optimize request handling, enhance system resilience, and improve response speed by \textbf{20\%} in high-concurrency scenarios.
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            01/2024 - 02/2024
+        }
+            \textbf{Site Reliability Engineer Intern}, \textit{China Mobile Limited Fujian}\end{twocolentry}
+
+        \begin{onecolentry}
+            \begin{highlights}
+            
+                \item \textbf{Developed an automated operations monitoring and fault diagnosis system} using \textit{Python}, incorporating email alerts via the \textit{smtplib} package and APIs for seamless automatic work order creation.
+                
+                \item \textbf{Built a large language model (LLM) toolchain} with \textit{LangChain} to assist the operations team. Created various APIs with \textit{Python} and the \textit{Flask} framework for real-time server status updates, log retrieval, and critical data queries, which were integrated into the \textit{LangChain} toolchain to improve the precision of LLM-generated outputs.
+                
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            07/2023 - 08/2023
+            
+        }
+            \textbf{Software Engineer Intern}, \textit{Evecom Technology Co., Ltd.}\end{twocolentry}
+
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Developed the \textbf{back-end} of a Legal Knowledge Question Bank System using \textit{Java}, the \textit{Spring Boot} framework, and \textit{MyBatis} for database interactions, implementing management operations for question bank data. Integrated \textit{Redis} for data caching, reducing API response time by \textbf{50\%}.
+                \item Implemented fine-grained access control using \textit{Spring Security} and \textit{JWT} for different user roles, enhancing system security and data protection. Extracted and organized legal questions from Word documents using \textit{Apache POI} and regular expressions, achieving a \textbf{98\%} extraction success rate while effectively handling exceptions.
+                
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.2 cm}
+
+        \begin{twocolentry}{
+            01/2023 - 02/2023
+        }
+            \textbf{Database Developer Intern}, \textit{AsiaInfo Technologies Limited}\end{twocolentry}
+
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Designed the \textit{Oracle database} for an Infrastructure Management system, developing efficient database schemas and optimizing indexing strategies to improve query performance. Additionally, implemented robust backup and recovery plans to ensure data integrity and maintain system reliability.
+                \item  Configured \textit{Oracle Data Guard} for disaster recovery and implemented a regular backup schedule with point-in-time recovery (PITR) to ensure data availability and integrity. Utilized \textit{Oracle Enterprise} for database optimization, improving data retrieval speed of key communication traffic reports by \textbf{50\%}.
+            \end{highlights}
+        \end{onecolentry}
+
+        
+\section{Projects}
+
+        \begin{twocolentry}
+    {\hspace{-5cm}\href{https://github.com/Elendil3703/data_center}{github.com/Elendil3703/data\_center}}
+    \textbf{Foundation of the Public Data Hub at SYSU}
+        \end{twocolentry}
+
+        % \vspace{0.10 cm}
+        \begin{onecolentry}
+        Full Stack Developer \& Team Leader
+            \begin{highlights}
+                
+                \item Led the team to build a comprehensive central data platform, enabling independent system operation with streamlined data access and control. The platform provides end-to-end data management and analytics.
+                
+                \item Developed back-end APIs using \textit{Java} and the \textit{Spring Boot} framework for permission management, allowing system administrators to access shared data tables while restricting modifications to their own data. 
+                
+                \item \textbf{Data Search}: Utilized \textit{FlinkCDC} to monitor real-time database changes, with data streamed via \textit{Kafka} to \textit{ElasticSearch} for full-text search, enabling reliable data transmission across multiple data source clusters.
+
+                \item Designed the front-end interface using \textit{Vue.js} combined with \textit{Element UI}. Created diverse data visualizations through \textit{Kibana} for data analysis.
+                
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.2 cm}
+
+        
+        \begin{twocolentry}
+    {\hspace{-5cm}\href{https://github.com/Elendil3703/food_delivery_system}{github.com/Elendil3703/food\_delivery\_system}}
+    \textbf{Campus Food Delivery Platform}
+        \end{twocolentry}
+
+        % \vspace{0.10 cm}
+        \begin{onecolentry}
+        Golang Backend Developer
+            \begin{highlights}
+                \item Built a comprehensive campus food delivery platform website, including both customer and merchant interfaces, with \textbf{1,563 registered users and O(100) orders per day}. 
+                \item Developed \textbf{back-end API} using \textit{Golang} and the \textit{GIN} framework, implementing core business modules such as product and order management. Leveraged \textit{Goroutines} and \textit{channels} to efficiently handle high-concurrency requests, managing up to 10,000 requests per second (RPS) while ensuring robust performance through \textit{MySQL’s transaction} mechanisms and \textit{Go’s sync package} for synchronization.
+                
+            \end{highlights}
+        \end{onecolentry}
+
+
+       
+
+
+    
+
+   
+
+
+
+    
+    % \section{Publications}
+
+
+
+        
+    %     \begin{samepage}
+    %         \begin{twocolentry}{
+    %             Jan 2004
+    %         }
+    %             \textbf{Magneto-Thermal Thin Shell Approximation for 3D Finite Element Analysis of No-Insulation Coils}
+    %         \end{twocolentry}
+
+    %         \vspace{0.10 cm}
+            
+    %         \begin{onecolentry}
+    %             \mbox{Albert Smith}, \mbox{\textbf{\textit{John Doe}}}, \mbox{Jane Derry}, \mbox{Harry Tom}, \mbox{Frodo Baggins}
+
+    %             \vspace{0.10 cm}
+                
+    %     \href{https://doi.org/10.1109/TASC.2023.3340648}{10.1109/TASC.2023.3340648}
+    %     \end{onecolentry}
+    %     \end{samepage}
+
+
+        
+\section{Awards}
+\begin{twocolentry}
+    {June 2023}{Innovation Award, HSBC Software Hackathon}
+\end{twocolentry}
+\begin{twocolentry}
+    {November 2023}{
+    Third Prize, MathorCup Big Data Modeling Contest
+    }
+\end{twocolentry} 
+\begin{twocolentry}
+    {September 2022}{Third Prize, China College Math Modeling Contest, Guangdong}
+\end{twocolentry}
+ 
+\section{Skills}
+
+\begin{description}
+\setlength{\itemsep}{-5pt}   % 设置每个 item 之间的间距
+    \item[Programming Languages:] C++, Java, Golang, Python, HTML, CSS, JavaScript, SQL
+    \item[Technologies:] Linux, Git, SpringBoot, GIN, Vue.js, Pytorch, MySQL, Oracle
+\end{description}
+
+
+    
+   
+
+    
+    
+
+
+    
+
+\end{document}
