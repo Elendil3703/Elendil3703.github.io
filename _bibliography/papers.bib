@@ -1,6 +1,21 @@
 ---
 ---
 
+@article{chen2026whobroke,
+  abbr={arXiv},
+  bibtex_show={true},
+  title={Who Broke Me? Execution-Guided Repair of Behavioral Dependency Breaks},
+  author={Chen, Juntao and Bi, Tingting and Wang, Yanlin and Thongtanunam, Patanamon},
+  journal={arXiv preprint arXiv:2610.09267},
+  year={2026},
+  month={Oct},
+  arxiv={2610.09267},
+  html={https://arxiv.org/abs/2610.09267},
+  pdf={https://arxiv.org/pdf/2610.09267},
+  abstract={Dependency upgrades can break downstream projects without changing the library interface. Such behavioral breaking changes are difficult for developers to fix, because the failing test does not always point to the root API, the upstream API that causes the break. Existing LLM-based repair methods obtain evidence for the repair from compiler feedback or library documentation. However, a behavioral break produces no compiler feedback and is often undocumented. Agents that receive no upgrade evidence also usually do not retrieve upstream evidence themselves, and most of their failed repairs do not identify the root API. The library diff provides useful upstream evidence, but the root API must first be identified to select the relevant part of the diff. We present BBCFixer, a repair method that runs the failing test under the old and new library versions, ranks the calls whose return value differs to identify a candidate root API, and filters the library diff with that candidate. To evaluate repairs of behavioral breaks, we further introduce BBCBench, a benchmark of 100 behavioral dependency breaks in Python and JavaScript. We compare BBCFixer on BBCBench with two baselines: (1) Pure Agent, an agent that receives no upgrade evidence, and (2) BDUpdater, a method that mines library documentation. BBCFixer raises the average pass rate by up to 17% relative to Pure Agent and needs up to 27% fewer agent steps per successful repair. BBCFixer thus provides a way to select the upstream evidence behind a behavioral break, so that an LLM agent can repair behavioral breaking changes more effectively and efficiently.},
+  selected={true}
+}
+
 @article{chen2026breaking,
   abbr={arXiv},
   bibtex_show={true},
